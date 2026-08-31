@@ -1412,7 +1412,7 @@
         <main class="main-content" id="mainContent">
 
             <!-- ─── LOGIN SCREEN ─── -->
-            <div id="loginScreen" class="login-page" style="display:none;min-height:80vh;padding:40px 20px;">
+            <div id="loginScreen" class="login-page" style="display:flex;min-height:80vh;padding:40px 20px;">
                 <div class="login-card">
                     <div class="brand">
                         <h1>✂ Barber<span>SaaS</span></h1>
@@ -1421,17 +1421,17 @@
                     <div class="error-msg" id="loginError">Invalid credentials</div>
                     <div class="form-group">
                         <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" placeholder="admin@example.com" autocomplete="email" value="mohamedatefmo19@gmail.com" />
+                        <input type="email" id="loginEmail" placeholder="admin@example.com" autocomplete="email" />
                         <div class="input-error" id="emailError">Email is required</div>
                     </div>
                     <div class="form-group">
                         <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" value="admin1234" />
+                        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
                         <div class="input-error" id="passError">Password is required</div>
                     </div>
                     <button class="btn-login" id="loginBtn">Sign In</button>
                     <div style="margin-top:12px;font-size:12px;color:var(--text-muted);text-align:center;">
-                        سيتم تسجيل الدخول تلقائياً خلال ثوانٍ...
+                        سيتم إنشاء حسابك تلقائياً عند أول تسجيل دخول
                     </div>
                 </div>
             </div>
@@ -1968,40 +1968,102 @@
         $('#deniedLogout').addEventListener('click', logout);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // AUTO-INIT USER IN FIRESTORE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        async function ensureUserDocument(user) {
+            if (!user) return null;
+
+            const userRef = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userRef);
+
+            // البريد الإلكتروني المطلوب جعله مشرفاً
+            const SUPER_ADMIN_EMAIL = 'mohamedatefmo19@gmail.com';
+
+            let role = 'customer'; // الدور الافتراضي
+            let needsUpdate = false;
+            let userData = {};
+
+            if (userSnap.exists()) {
+                userData = userSnap.data();
+                // إذا كان المستخدم موجوداً ولكن لا يوجد حقل role
+                if (!userData.role) {
+                    // إذا كان البريد هو البريد المحدد، اجعله مشرفاً
+                    if (user.email === SUPER_ADMIN_EMAIL) {
+                        role = 'super_admin';
+                    } else {
+                        role = 'customer';
+                    }
+                    needsUpdate = true;
+                } else {
+                    role = userData.role;
+                }
+            } else {
+                // المستخدم غير موجود، أنشئ وثيقة جديدة
+                if (user.email === SUPER_ADMIN_EMAIL) {
+                    role = 'super_admin';
+                } else {
+                    role = 'customer';
+                }
+                needsUpdate = true;
+                userData = {};
+            }
+
+            // إذا احتاجت الوثيقة إلى تحديث أو إنشاء
+            if (needsUpdate) {
+                const newData = {
+                    email: user.email,
+                    displayName: user.displayName || user.email?.split('@')[0] || 'User',
+                    role: role,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp(),
+                    ...userData
+                };
+                await setDoc(userRef, newData, { merge: true });
+                return role;
+            }
+
+            return role;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // AUTH STATE
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                // check role
                 try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        currentUserRole = data.role || 'customer';
-                        if (currentUserRole === 'super_admin') {
-                            // show dashboard
-                            loginScreen.style.display = 'none';
-                            accessDenied.style.display = 'none';
-                            mainWrapper.style.display = 'flex';
-                            // set admin info
-                            $('#adminAvatar').textContent = (data.displayName || 'A').charAt(0).toUpperCase();
-                            $('#adminName').textContent = data.displayName || 'Admin';
-                            // load initial data
-                            loadOverview();
-                            setupRealtimeListeners();
-                            return;
-                        }
+                    // تأكد من وجود المستخدم في Firestore واحصل على دوره
+                    const role = await ensureUserDocument(user);
+                    currentUserRole = role || 'customer';
+
+                    if (currentUserRole === 'super_admin') {
+                        // show dashboard
+                        loginScreen.style.display = 'none';
+                        accessDenied.style.display = 'none';
+                        mainWrapper.style.display = 'flex';
+                        // set admin info
+                        const displayName = user.displayName || 'Admin';
+                        $('#adminAvatar').textContent = displayName.charAt(0).toUpperCase();
+                        $('#adminName').textContent = displayName;
+                        // load initial data
+                        loadOverview();
+                        setupRealtimeListeners();
+                        showToast(`مرحباً ${displayName} 👋`, 'success');
+                        return;
+                    } else {
+                        // ليس مشرفاً
+                        loginScreen.style.display = 'none';
+                        accessDenied.style.display = 'flex';
+                        mainWrapper.style.display = 'none';
+                        showToast('ليس لديك صلاحية الدخول إلى لوحة المشرفين', 'error');
+                        return;
                     }
-                    // not super admin
-                    loginScreen.style.display = 'none';
-                    accessDenied.style.display = 'flex';
-                    mainWrapper.style.display = 'none';
                 } catch (err) {
-                    console.error('Role check error:', err);
+                    console.error('Auth initialization error:', err);
                     loginScreen.style.display = 'none';
                     accessDenied.style.display = 'flex';
                     mainWrapper.style.display = 'none';
+                    showToast('حدث خطأ أثناء التحقق من الصلاحيات', 'error');
                 }
             } else {
                 currentUser = null;
@@ -2014,18 +2076,6 @@
                 unsubscribeListeners = [];
             }
         });
-
-        // ─── AUTO-LOGIN WITH PROVIDED CREDENTIALS ───
-        // بعد تحميل الصفحة، حاول تسجيل الدخول تلقائياً باستخدام البيانات المحددة
-        setTimeout(() => {
-            const email = 'mohamedatefmo19@gmail.com';
-            const password = 'admin1234';
-            // Only attempt if we are on login screen and not already logged in
-            if (loginScreen.style.display !== 'none' && !currentUser) {
-                console.log('Attempting auto-login...');
-                login(email, password).catch(() => {});
-            }
-        }, 1500); // تأخير 1.5 ثانية للسماح بتهيئة Firebase
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // REAL-TIME LISTENERS (selective)
@@ -3857,9 +3907,6 @@
         loginScreen.style.display = 'flex';
         accessDenied.style.display = 'none';
         mainWrapper.style.display = 'none';
-
-        // load stats for overview on first load
-        // Wait for auth to trigger
 
         console.log('✅ System ready. Waiting for authentication...');
 
