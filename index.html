@@ -49,7 +49,7 @@
     </form>
     <button class="forgot-link" id="forgotBtn">نسيت كلمة المرور؟</button>
     <div id="loadingIndicator" class="auth-loading hidden"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>
-    <div class="footer-note">🔐 أول مستخدم يصبح أدمن تلقائياً</div>
+    <div class="footer-note">🔐 أي مستخدم مسجل يمكنه الدخول – صلاحية الأدمن تُحدد في لوحة التحكم</div>
   </div>
 
   <script type="importmap">
@@ -68,7 +68,7 @@
     import { getFirestore, doc, setDoc, getDoc, getDocs, collection, query, limit, serverTimestamp, updateDoc } from 'firebase/firestore';
 
     // ================================================================
-    // 🔑 التكوين الجديد (تم التحديث حسب البيانات التي أرسلتها)
+    // 🔑 التكوين الجديد (تم التحديث)
     // ================================================================
     const firebaseConfig = {
       apiKey: "AIzaSyA0IWiY-tI30LX2PS9G2T2gEiBAEd4GqzU",
@@ -150,7 +150,7 @@
     }
 
     // ================================================================
-    // AUTH FUNCTIONS
+    // AUTH FUNCTIONS – الآن تسمح للجميع، لا تسجيل خروج للمستخدمين غير الأدمن
     // ================================================================
     async function handleLogin(email, password) {
       clearError();
@@ -161,35 +161,18 @@
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
 
+        // إذا لم يكن للمستخدم مستند، أنشئه (مع دور مناسب)
         if (!userSnap.exists()) {
           const first = await isFirstUser();
           const role = first ? 'super_admin' : 'customer';
           await createUserDoc(user, role);
-          if (role === 'super_admin') {
-            showError('🎉 أنت أول مستخدم، تم ترقيتك إلى سوبر أدمن!');
-            setTimeout(() => window.location.href = '/admin/dashboard.html', 1500);
-            setLoading(false);
-            return;
-          }
         } else {
           await updateLastLogin(user);
         }
 
-        const freshSnap = await getDoc(userRef);
-        if (freshSnap.exists()) {
-          const data = freshSnap.data();
-          const role = data.role || 'customer';
-          if (role === 'super_admin') {
-            window.location.href = '/admin/dashboard.html';
-          } else {
-            showError('⚠️ ليس لديك صلاحية سوبر أدمن للوصول إلى لوحة التحكم.');
-            await signOut(auth);
-            setLoading(false);
-          }
-        } else {
-          showError('حدث خطأ في التحقق من الصلاحية، يرجى المحاولة مرة أخرى.');
-          setLoading(false);
-        }
+        // ✅ التعديل الجوهري: نوجه جميع المستخدمين إلى dashboard، بغض النظر عن دورهم
+        // dashboard سيتولى التحقق من الصلاحية وعرض المحتوى المناسب
+        window.location.href = '/admin/dashboard.html';
       } catch (err) {
         showError(err.message);
         setLoading(false);
@@ -206,17 +189,8 @@
         const first = await isFirstUser();
         const role = first ? 'super_admin' : 'customer';
         await createUserDoc(user, role);
-        if (role === 'super_admin') {
-          showError('🎉 تم إنشاء حسابك كأول أدمن!');
-          setTimeout(() => window.location.href = '/admin/dashboard.html', 1500);
-          setLoading(false);
-          return;
-        }
-        showError('✅ تم إنشاء الحساب بنجاح. يمكنك الآن تسجيل الدخول.');
-        emailInput.value = email;
-        passwordInput.value = '';
-        toggleMode('login');
-        setLoading(false);
+        // ✅ بعد إنشاء الحساب، نوجه المستخدم مباشرة إلى dashboard
+        window.location.href = '/admin/dashboard.html';
       } catch (err) {
         showError(err.message);
         setLoading(false);
@@ -284,17 +258,12 @@
     });
 
     // ================================================================
-    // AUTO-REDIRECT if already logged in as super_admin
+    // إذا كان المستخدم مسجلاً بالفعل، نوجهه إلى dashboard (أيضاً للجميع)
     // ================================================================
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
-        try {
-          const userRef = doc(db, 'users', user.uid);
-          const snap = await getDoc(userRef);
-          if (snap.exists() && snap.data().role === 'super_admin') {
-            window.location.href = '/admin/dashboard.html';
-          }
-        } catch (e) { /* ignore */ }
+        // نوجه أي مستخدم مسجل إلى dashboard
+        window.location.href = '/admin/dashboard.html';
       }
     });
 
@@ -302,7 +271,7 @@
       if (e.key === 'Escape') clearError();
     });
 
-    console.log('✅ صفحة تسجيل الدخول جاهزة (تم تحديث التكوين)');
+    console.log('✅ صفحة تسجيل الدخول – تسمح للجميع بالدخول إلى dashboard');
   </script>
 </body>
 </html>
