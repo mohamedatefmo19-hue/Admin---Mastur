@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>سوبر أدمن – لوحة التحكم</title>
+    <title>لوحة التحكم – باربر سنترال</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <!-- Google Fonts (Arabic) -->
@@ -344,6 +344,14 @@
             font-size: 0.8rem;
             margin-right: 8px;
         }
+        .topbar .page-title .role-badge {
+            font-size: 0.6rem;
+            padding: 2px 12px;
+            border-radius: 50px;
+            background: rgba(212, 167, 74, 0.2);
+            color: var(--accent-gold);
+            margin-right: 8px;
+        }
         .topbar-actions {
             display: flex;
             align-items: center;
@@ -561,6 +569,13 @@
             color: var(--accent-gold);
             background: transparent;
         }
+        .table-toolbar .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .table-toolbar .btn-danger:hover {
+            background: #c0392b;
+        }
 
         .table-scroll {
             overflow-x: auto;
@@ -616,6 +631,10 @@
         table td .actions button.danger:hover {
             color: var(--danger);
             background: var(--danger-bg);
+        }
+        table td .actions button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
         .empty-state {
@@ -1168,6 +1187,32 @@
             color: var(--accent-gold);
             background: rgba(212, 167, 74, 0.08);
         }
+
+        /* ============================================================
+                   PERMISSION BANNER
+                   ============================================================ */
+        .permission-banner {
+            background: rgba(212, 167, 74, 0.08);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--radius-sm);
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .permission-banner i {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+        .permission-banner .msg {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        .permission-banner .msg strong {
+            color: var(--accent-gold);
+        }
     </style>
 </head>
 <body>
@@ -1180,7 +1225,7 @@
             <i class="fas fa-scissors logo-icon"></i>
             <div>
                 <div class="brand-text">باربر سنترال</div>
-                <div class="brand-sub">سوبر أدمن</div>
+                <div class="brand-sub">لوحة التحكم</div>
             </div>
         </div>
 
@@ -1254,7 +1299,8 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="page-title" id="pageTitle">
-                    نظرة عامة <small>سوبر أدمن</small>
+                    نظرة عامة <small>لوحة التحكم</small>
+                    <span class="role-badge" id="roleBadge">👤 مستخدم</span>
                 </div>
             </div>
             <div class="topbar-actions">
@@ -1263,10 +1309,10 @@
                     <span class="dot" id="notifDot"></span>
                 </button>
                 <div class="admin-profile" id="adminProfile">
-                    <img id="adminAvatar" src="https://ui-avatars.com/api/?name=Admin&background=d4a74a&color=fff&size=64" alt="Admin" />
+                    <img id="adminAvatar" src="https://ui-avatars.com/api/?name=User&background=d4a74a&color=fff&size=64" alt="User" />
                     <div>
-                        <div class="name" id="adminName">أدمن</div>
-                        <div class="role">سوبر أدمن</div>
+                        <div class="name" id="adminName">مستخدم</div>
+                        <div class="role" id="adminRole">عميل</div>
                     </div>
                 </div>
             </div>
@@ -1274,6 +1320,14 @@
 
         <!-- PAGE CONTENT -->
         <main class="page-content" id="pageContent">
+
+            <!-- ======================== PERMISSION BANNER ======================== -->
+            <div class="permission-banner" id="permissionBanner">
+                <i class="fas fa-info-circle"></i>
+                <div class="msg" id="permissionMsg">
+                    🔓 مرحباً بك في لوحة التحكم. <strong id="userRoleDisplay">عميل</strong> – يمكنك عرض جميع البيانات، ولكن بعض الإجراءات (تعديل/حذف) تتطلب صلاحية <strong>سوبر أدمن</strong>.
+                </div>
+            </div>
 
             <!-- ======================== DASHBOARD ======================== -->
             <section class="page-section active" id="page-dashboard">
@@ -1733,7 +1787,7 @@
                     <h3 style="font-weight:700;font-size:1.1rem;margin-bottom:20px;"><i class="fas fa-user-circle text-gold" style="margin-left:8px;"></i>الملف الشخصي</h3>
                     <div class="table-wrap" style="padding:24px;">
                         <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;flex-wrap:wrap;">
-                            <img id="profileAvatar" src="https://ui-avatars.com/api/?name=Admin&background=d4a74a&color=fff&size=128" alt="Profile" style="width:80px;height:80px;border-radius:50%;border:3px solid var(--accent-gold);object-fit:cover;" />
+                            <img id="profileAvatar" src="https://ui-avatars.com/api/?name=User&background=d4a74a&color=fff&size=128" alt="Profile" style="width:80px;height:80px;border-radius:50%;border:3px solid var(--accent-gold);object-fit:cover;" />
                             <div>
                                 <button class="btn btn-outline" id="uploadAvatarBtn" style="font-size:0.8rem;"><i class="fas fa-upload"></i> تغيير الصورة</button>
                                 <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" />
@@ -1838,13 +1892,13 @@
         // FIREBASE CONFIG
         // ================================================================
         const firebaseConfig = {
-            apiKey: "AIzaSyA0IWiY-tI30LX2PSG9T2G2gEiBAEd4GqzU",
+            apiKey: "AIzaSyA0IWiY-tI30LX2PS9G2T2gEiBAEd4GqzU",
             authDomain: "salons-feee4.firebaseapp.com",
             projectId: "salons-feee4",
             storageBucket: "salons-feee4.firebasestorage.app",
             messagingSenderId: "601094041409",
-            appId: "1:601094041409:web:d03a02de993fbb203cbbc0",
-            measurementId: "G-GP53GSCW0C"
+            appId: "1:601094041409:web:8cebb62fcc0ac7233cbbc0",
+            measurementId: "G-LKCK2L6PMR"
         };
 
         // ================================================================
@@ -1991,7 +2045,8 @@
                 settings: 'إعدادات المنصة',
                 profile: 'الملف الشخصي'
             };
-            pageTitle.innerHTML = `${titles[page] || page} <small>سوبر أدمن</small>`;
+            const roleText = isSuperAdmin ? 'سوبر أدمن' : (currentUserDoc?.role || 'عميل');
+            pageTitle.innerHTML = `${titles[page] || page} <small>لوحة التحكم</small> <span class="role-badge">👤 ${roleText}</span>`;
 
             // Close sidebar on mobile
             if (window.innerWidth <= 768) {
@@ -2071,30 +2126,9 @@
         }
 
         // ================================================================
-        // AUTH - مع إنشاء أول سوبر أدمن تلقائياً
+        // AUTH - يُسمح للجميع بالدخول، مع عرض الدور في الواجهة
         // ================================================================
-        async function isFirstUser() {
-            const q = query(collection(db, 'users'), limit(1));
-            const snap = await getDocs(q);
-            return snap.empty;
-        }
-
-        async function createUserDoc(user, role = 'customer') {
-            const userRef = doc(db, 'users', user.uid);
-            await setDoc(userRef, {
-                uid: user.uid,
-                name: user.displayName || user.email || 'مستخدم',
-                email: user.email || '',
-                role: role,
-                phone: '',
-                photoUrl: user.photoURL || '',
-                createdAt: serverTimestamp(),
-                updatedAt: serverTimestamp(),
-                lastLoginAt: serverTimestamp()
-            }, { merge: true });
-        }
-
-        async function checkAdminAuth() {
+        async function checkAuth() {
             return new Promise((resolve) => {
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
@@ -2102,37 +2136,45 @@
                         try {
                             const userRef = doc(db, 'users', user.uid);
                             const userSnap = await getDoc(userRef);
-
-                            if (!userSnap.exists()) {
-                                // First time this user logs in
-                                const first = await isFirstUser();
+                            if (userSnap.exists()) {
+                                currentUserDoc = userSnap.data();
+                                isSuperAdmin = currentUserDoc.role === 'super_admin';
+                            } else {
+                                // إنشاء مستند للمستخدم إذا لم يكن موجوداً
+                                const q = query(collection(db, 'users'), limit(1));
+                                const snap = await getDocs(q);
+                                const first = snap.empty;
                                 const role = first ? 'super_admin' : 'customer';
-                                await createUserDoc(user, role);
-                                // Re-fetch
+                                await setDoc(userRef, {
+                                    uid: user.uid,
+                                    name: user.displayName || user.email || 'مستخدم',
+                                    email: user.email || '',
+                                    role: role,
+                                    phone: '',
+                                    photoUrl: user.photoURL || '',
+                                    createdAt: serverTimestamp(),
+                                    updatedAt: serverTimestamp(),
+                                    lastLoginAt: serverTimestamp()
+                                }, { merge: true });
                                 const newSnap = await getDoc(userRef);
                                 if (newSnap.exists()) {
                                     currentUserDoc = newSnap.data();
                                     isSuperAdmin = currentUserDoc.role === 'super_admin';
-                                } else {
-                                    isSuperAdmin = false;
                                 }
-                            } else {
-                                currentUserDoc = userSnap.data();
-                                isSuperAdmin = currentUserDoc.role === 'super_admin';
-                                // Update last login
-                                await updateDoc(userRef, { lastLoginAt: serverTimestamp() });
                             }
+                            // تحديث آخر تسجيل دخول
+                            await updateDoc(userRef, { lastLoginAt: serverTimestamp() });
                         } catch (e) {
-                            console.warn('Auth check error:', e);
+                            console.warn('Auth error:', e);
                             isSuperAdmin = false;
                         }
                     } else {
-                        currentUser = null;
-                        currentUserDoc = null;
-                        isSuperAdmin = false;
+                        // غير مسجل دخول → توجيه إلى صفحة تسجيل الدخول
+                        window.location.href = '/admin/index.html';
+                        return;
                     }
                     authChecked = true;
-                    resolve(isSuperAdmin);
+                    resolve(true);
                 });
             });
         }
@@ -2150,6 +2192,54 @@
         }
 
         // ================================================================
+        // UPDATE UI WITH USER INFO
+        // ================================================================
+        function updateUserUI() {
+            if (!currentUserDoc) return;
+            const name = currentUserDoc.name || 'مستخدم';
+            const role = currentUserDoc.role || 'عميل';
+            const roleMap = {
+                'super_admin': '👑 سوبر أدمن',
+                'shop_owner': '🏪 مالك صالون',
+                'barber': '✂️ حلاق',
+                'staff': '👔 موظف',
+                'customer': '👤 عميل'
+            };
+            const roleDisplay = roleMap[role] || role;
+
+            $('#adminName').textContent = name;
+            $('#adminRole').textContent = roleDisplay;
+            $('#userRoleDisplay').textContent = roleDisplay;
+
+            if (currentUserDoc.photoUrl) {
+                $('#adminAvatar').src = currentUserDoc.photoUrl;
+                $('#profileAvatar').src = currentUserDoc.photoUrl;
+            }
+
+            // تحديث لافتة الصلاحيات
+            const banner = $('#permissionBanner');
+            if (isSuperAdmin) {
+                banner.style.borderColor = 'var(--success)';
+                banner.querySelector('i').style.color = 'var(--success)';
+                document.querySelector('#permissionMsg').innerHTML = `
+                    ✅ لديك صلاحية <strong>سوبر أدمن</strong> كاملة. يمكنك إدارة جميع البيانات وإجراء التعديلات.
+                `;
+            } else {
+                banner.style.borderColor = 'var(--warning)';
+                banner.querySelector('i').style.color = 'var(--warning)';
+                document.querySelector('#permissionMsg').innerHTML = `
+                    🔓 مرحباً بك في لوحة التحكم. <strong>${roleDisplay}</strong> – يمكنك عرض جميع البيانات، ولكن بعض الإجراءات (تعديل/حذف) تتطلب صلاحية <strong>سوبر أدمن</strong>.
+                `;
+            }
+
+            // تحديث الـ role badge في الـ topbar
+            const badge = document.querySelector('.role-badge');
+            if (badge) {
+                badge.textContent = `👤 ${roleDisplay}`;
+            }
+        }
+
+        // ================================================================
         // DASHBOARD
         // ================================================================
         async function loadDashboard() {
@@ -2163,7 +2253,6 @@
             };
 
             try {
-                // Shops
                 const shopsSnap = await getDocs(collection(db, 'shops'));
                 stats.totalShops = shopsSnap.size;
                 shopsSnap.forEach(doc => {
@@ -2179,11 +2268,9 @@
                     }
                 });
 
-                // Users
                 const usersSnap = await getDocs(collection(db, 'users'));
                 stats.totalUsers = usersSnap.size;
 
-                // Bookings - limited count from first 10 shops
                 let bookingCount = 0;
                 const shopSnap = await getDocs(collection(db, 'shops'));
                 let count = 0;
@@ -2195,7 +2282,6 @@
                 }
                 stats.totalBookings = bookingCount;
 
-                // Update UI
                 $('#statTotalShops').textContent = stats.totalShops;
                 $('#statActiveShops').textContent = stats.activeShops;
                 $('#statPendingShops').textContent = stats.pendingShops;
@@ -2311,9 +2397,13 @@
                             <td>
                                 <div class="actions">
                                     <button class="shop-action" data-id="${doc.id}" data-action="view" title="عرض"><i class="fas fa-eye"></i></button>
-                                    <button class="shop-action" data-id="${doc.id}" data-action="activate" title="تفعيل"><i class="fas fa-check-circle" style="color:var(--success);"></i></button>
-                                    <button class="shop-action" data-id="${doc.id}" data-action="suspend" title="إيقاف"><i class="fas fa-pause-circle" style="color:var(--warning);"></i></button>
-                                    <button class="shop-action" data-id="${doc.id}" data-action="delete" title="حذف"><i class="fas fa-trash" style="color:var(--danger);"></i></button>
+                                    ${isSuperAdmin ? `
+                                        <button class="shop-action" data-id="${doc.id}" data-action="activate" title="تفعيل"><i class="fas fa-check-circle" style="color:var(--success);"></i></button>
+                                        <button class="shop-action" data-id="${doc.id}" data-action="suspend" title="إيقاف"><i class="fas fa-pause-circle" style="color:var(--warning);"></i></button>
+                                        <button class="shop-action" data-id="${doc.id}" data-action="delete" title="حذف"><i class="fas fa-trash" style="color:var(--danger);"></i></button>
+                                    ` : `
+                                        <span style="font-size:0.7rem;color:var(--text-muted);">🔒 فقط للأدمن</span>
+                                    `}
                                 </div>
                             </td>
                         </tr>
@@ -2331,6 +2421,10 @@
                 tbody.querySelectorAll('.shop-action').forEach(btn => {
                     btn.addEventListener('click', async (e) => {
                         e.stopPropagation();
+                        if (!isSuperAdmin) {
+                            showToast('🔒 هذه الإجراءات متاحة فقط للسوبر أدمن', 'warning');
+                            return;
+                        }
                         const id = btn.dataset.id;
                         const action = btn.dataset.action;
                         await handleShopAction(id, action);
@@ -2390,14 +2484,6 @@
                         targetId: id,
                         description: `تم تفعيل الصالون ${id}`,
                         timestamp: serverTimestamp()
-                    });
-                    await addDoc(collection(db, 'notifications'), {
-                        type: 'shop_activated',
-                        targetId: id,
-                        message: 'تم تفعيل صالونك بنجاح',
-                        userId: currentUser.uid,
-                        read: false,
-                        createdAt: serverTimestamp()
                     });
                     showToast('تم تفعيل الصالون بنجاح', 'success');
                     loadShops(true);
@@ -2569,7 +2655,6 @@
                 tbody.innerHTML = html;
                 $('#usersCount').textContent = `${snap.size} مستخدم`;
 
-                // Search & filter
                 const search = $('#usersSearch');
                 const roleFilter = $('#usersRoleFilter');
                 const filterRows = () => {
@@ -2659,7 +2744,6 @@
                 tbody.innerHTML = html;
                 $('#bookingsCount').textContent = `${allBookings.length} حجز`;
 
-                // Search & filter
                 const search = $('#bookingsSearch');
                 const statusFilter = $('#bookingsStatusFilter');
                 const filterRows = () => {
@@ -2795,9 +2879,13 @@
                             <td><span class="badge ${statusBadge}">${r.status || 'pending'}</span></td>
                             <td>
                                 <div class="actions">
-                                    <button class="review-action" data-id="${r.id}" data-shop="${r.shopId}" data-action="approve" title="قبول"><i class="fas fa-check" style="color:var(--success);"></i></button>
-                                    <button class="review-action" data-id="${r.id}" data-shop="${r.shopId}" data-action="hide" title="إخفاء"><i class="fas fa-eye-slash" style="color:var(--warning);"></i></button>
-                                    <button class="review-action" data-id="${r.id}" data-shop="${r.shopId}" data-action="delete" title="حذف"><i class="fas fa-trash" style="color:var(--danger);"></i></button>
+                                    ${isSuperAdmin ? `
+                                        <button class="review-action" data-id="${r.id}" data-shop="${r.shopId}" data-action="approve" title="قبول"><i class="fas fa-check" style="color:var(--success);"></i></button>
+                                        <button class="review-action" data-id="${r.id}" data-shop="${r.shopId}" data-action="hide" title="إخفاء"><i class="fas fa-eye-slash" style="color:var(--warning);"></i></button>
+                                        <button class="review-action" data-id="${r.id}" data-shop="${r.shopId}" data-action="delete" title="حذف"><i class="fas fa-trash" style="color:var(--danger);"></i></button>
+                                    ` : `
+                                        <span style="font-size:0.7rem;color:var(--text-muted);">🔒 فقط للأدمن</span>
+                                    `}
                                 </div>
                             </td>
                         </tr>
@@ -2808,6 +2896,10 @@
 
                 tbody.querySelectorAll('.review-action').forEach(btn => {
                     btn.addEventListener('click', async () => {
+                        if (!isSuperAdmin) {
+                            showToast('🔒 هذه الإجراءات متاحة فقط للسوبر أدمن', 'warning');
+                            return;
+                        }
                         const id = btn.dataset.id;
                         const shopId = btn.dataset.shop;
                         const action = btn.dataset.action;
@@ -2833,7 +2925,6 @@
                     });
                 });
 
-                // Search & filter
                 const search = $('#reviewsSearch');
                 const statusFilter = $('#reviewsStatusFilter');
                 const filterRows = () => {
@@ -2875,7 +2966,11 @@
                             <i class="fas fa-crown" style="font-size:2.5rem;opacity:0.2;display:block;margin-bottom:12px;"></i>
                             <h3>لا توجد باقات</h3>
                             <p>أضف أول باقة اشتراك</p>
-                            <button class="btn" style="margin-top:12px;" id="createPlanBtnInline"><i class="fas fa-plus"></i> إضافة باقة</button>
+                            ${isSuperAdmin ? `
+                                <button class="btn" style="margin-top:12px;" id="createPlanBtnInline"><i class="fas fa-plus"></i> إضافة باقة</button>
+                            ` : `
+                                <span style="font-size:0.8rem;color:var(--text-muted);">🔒 إضافة الباقات متاحة فقط للسوبر أدمن</span>
+                            `}
                         </div>
                     `;
                     const inlineBtn = container.querySelector('#createPlanBtnInline');
@@ -2906,13 +3001,17 @@
                             <ul class="feature-list">
                                 ${features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
                             </ul>
-                            <div style="display:flex;gap:6px;margin-top:6px;">
-                                <button class="btn btn-outline plan-action" data-id="${doc.id}" data-action="edit" style="font-size:0.7rem;padding:4px 12px;">تعديل</button>
-                                <button class="btn btn-outline plan-action" data-id="${doc.id}" data-action="toggle" style="font-size:0.7rem;padding:4px 12px;">
-                                    ${data.status === 'active' ? 'تعطيل' : 'تفعيل'}
-                                </button>
-                                <button class="btn btn-outline plan-action" data-id="${doc.id}" data-action="delete" style="font-size:0.7rem;padding:4px 12px;color:var(--danger);">حذف</button>
-                            </div>
+                            ${isSuperAdmin ? `
+                                <div style="display:flex;gap:6px;margin-top:6px;">
+                                    <button class="btn btn-outline plan-action" data-id="${doc.id}" data-action="edit" style="font-size:0.7rem;padding:4px 12px;">تعديل</button>
+                                    <button class="btn btn-outline plan-action" data-id="${doc.id}" data-action="toggle" style="font-size:0.7rem;padding:4px 12px;">
+                                        ${data.status === 'active' ? 'تعطيل' : 'تفعيل'}
+                                    </button>
+                                    <button class="btn btn-outline plan-action" data-id="${doc.id}" data-action="delete" style="font-size:0.7rem;padding:4px 12px;color:var(--danger);">حذف</button>
+                                </div>
+                            ` : `
+                                <div style="font-size:0.7rem;color:var(--text-muted);margin-top:6px;">🔒 الإدارة متاحة فقط للسوبر أدمن</div>
+                            `}
                         </div>
                     `;
                 });
@@ -2921,6 +3020,10 @@
 
                 container.querySelectorAll('.plan-action').forEach(btn => {
                     btn.addEventListener('click', async () => {
+                        if (!isSuperAdmin) {
+                            showToast('🔒 هذه الإجراءات متاحة فقط للسوبر أدمن', 'warning');
+                            return;
+                        }
                         const id = btn.dataset.id;
                         const action = btn.dataset.action;
                         const ref = doc(db, 'plans', id);
@@ -2992,7 +3095,13 @@
             }
         }
 
-        $('#createPlanBtn').addEventListener('click', showCreatePlanModal);
+        $('#createPlanBtn').addEventListener('click', () => {
+            if (!isSuperAdmin) {
+                showToast('🔒 إضافة الباقات متاحة فقط للسوبر أدمن', 'warning');
+                return;
+            }
+            showCreatePlanModal();
+        });
 
         async function showCreatePlanModal() {
             const result = await openModal('إضافة باقة جديدة', `
@@ -3038,7 +3147,7 @@
         }
 
         // ================================================================
-        // SUBSCRIPTIONS
+        // SUBSCRIPTIONS (مختصرة)
         // ================================================================
         async function loadSubscriptions() {
             const tbody = $('#subsTableBody');
@@ -3075,7 +3184,6 @@
 
                 tbody.innerHTML = html;
 
-                // Search & filter
                 const search = $('#subsSearch');
                 const statusFilter = $('#subsStatusFilter');
                 const filterRows = () => {
@@ -3134,9 +3242,12 @@
                             <td><span class="badge ${statusBadge}">${data.status || 'pending'}</span></td>
                             <td>
                                 <div class="actions">
-                                    ${data.status === 'pending' ? `
+                                    ${data.status === 'pending' && isSuperAdmin ? `
                                         <button class="request-action" data-id="${doc.id}" data-action="approve" title="قبول"><i class="fas fa-check" style="color:var(--success);"></i></button>
                                         <button class="request-action" data-id="${doc.id}" data-action="reject" title="رفض"><i class="fas fa-times" style="color:var(--danger);"></i></button>
+                                    ` : ''}
+                                    ${data.status === 'pending' && !isSuperAdmin ? `
+                                        <span style="font-size:0.7rem;color:var(--text-muted);">🔒 فقط للأدمن</span>
                                     ` : ''}
                                 </div>
                             </td>
@@ -3148,6 +3259,10 @@
 
                 tbody.querySelectorAll('.request-action').forEach(btn => {
                     btn.addEventListener('click', async () => {
+                        if (!isSuperAdmin) {
+                            showToast('🔒 هذه الإجراءات متاحة فقط للسوبر أدمن', 'warning');
+                            return;
+                        }
                         const id = btn.dataset.id;
                         const action = btn.dataset.action;
                         const ref = doc(db, 'subscriptionRequests', id);
@@ -3199,7 +3314,6 @@
                     });
                 });
 
-                // Search & filter
                 const search = $('#requestsSearch');
                 const statusFilter = $('#requestsStatusFilter');
                 const filterRows = () => {
@@ -3259,9 +3373,12 @@
                             <td><span class="badge ${statusBadge}">${data.status || 'pending'}</span></td>
                             <td>
                                 <div class="actions">
-                                    ${data.status === 'pending' ? `
+                                    ${data.status === 'pending' && isSuperAdmin ? `
                                         <button class="payment-action" data-id="${doc.id}" data-action="approve" title="قبول"><i class="fas fa-check" style="color:var(--success);"></i></button>
                                         <button class="payment-action" data-id="${doc.id}" data-action="reject" title="رفض"><i class="fas fa-times" style="color:var(--danger);"></i></button>
+                                    ` : ''}
+                                    ${data.status === 'pending' && !isSuperAdmin ? `
+                                        <span style="font-size:0.7rem;color:var(--text-muted);">🔒 فقط للأدمن</span>
                                     ` : ''}
                                 </div>
                             </td>
@@ -3273,6 +3390,10 @@
 
                 tbody.querySelectorAll('.payment-action').forEach(btn => {
                     btn.addEventListener('click', async () => {
+                        if (!isSuperAdmin) {
+                            showToast('🔒 هذه الإجراءات متاحة فقط للسوبر أدمن', 'warning');
+                            return;
+                        }
                         const id = btn.dataset.id;
                         const action = btn.dataset.action;
                         const ref = doc(db, 'paymentRequests', id);
@@ -3311,7 +3432,6 @@
                     });
                 });
 
-                // Search & filter
                 const search = $('#paymentsSearch');
                 const statusFilter = $('#paymentsStatusFilter');
                 const filterRows = () => {
@@ -3450,6 +3570,10 @@
         }
 
         $('#saveSettingsBtn').addEventListener('click', async () => {
+            if (!isSuperAdmin) {
+                showToast('🔒 حفظ الإعدادات متاحة فقط للسوبر أدمن', 'warning');
+                return;
+            }
             try {
                 const data = {
                     platformName: $('#settingsPlatformName').value.trim(),
@@ -3483,7 +3607,7 @@
                 $('#profileAvatar').src = data.photoUrl;
                 $('#adminAvatar').src = data.photoUrl;
             }
-            $('#adminName').textContent = data.name || 'أدمن';
+            $('#adminName').textContent = data.name || 'مستخدم';
         }
 
         $('#updateProfileBtn').addEventListener('click', async () => {
@@ -3492,7 +3616,7 @@
             const phone = $('#profilePhone').value.trim();
             try {
                 await updateDoc(doc(db, 'users', currentUser.uid), {
-                    name: name || currentUser.displayName || 'أدمن',
+                    name: name || currentUser.displayName || 'مستخدم',
                     phone: phone || '',
                     updatedAt: serverTimestamp()
                 });
@@ -3501,7 +3625,7 @@
                 }
                 showToast('تم تحديث الملف الشخصي', 'success');
                 loadProfile();
-                $('#adminName').textContent = name || 'أدمن';
+                $('#adminName').textContent = name || 'مستخدم';
             } catch (e) {
                 showToast('خطأ: ' + e.message, 'error');
             }
@@ -3605,7 +3729,7 @@
         });
 
         // ================================================================
-        // INIT AUTH & APP
+        // INIT APP
         // ================================================================
         async function initApp() {
             // Show loading
@@ -3613,12 +3737,12 @@
             mainContent.innerHTML = `
                 <div class="text-center" style="padding:80px 20px;">
                     <i class="fas fa-spinner fa-spin" style="font-size:2.5rem;color:var(--accent-gold);"></i>
-                    <h3 style="margin-top:16px;font-weight:600;">جاري التحقق من الصلاحية...</h3>
+                    <h3 style="margin-top:16px;font-weight:600;">جاري التحقق من المستخدم...</h3>
                     <p class="text-muted">يرجى الانتظار</p>
                 </div>
             `;
 
-            await checkAdminAuth();
+            await checkAuth();
 
             if (!authChecked) return;
 
@@ -3627,31 +3751,18 @@
                 return;
             }
 
-            if (!isSuperAdmin) {
-                document.body.innerHTML = `
-                    <div class="access-denied">
-                        <i class="fas fa-lock"></i>
-                        <h1>غير مصرح</h1>
-                        <p>ليس لديك صلاحية سوبر أدمن للوصول إلى لوحة التحكم.</p>
-                        <button onclick="firebase.auth().signOut()" style="margin-top:20px;padding:10px 30px;border:none;border-radius:8px;background:var(--accent-gold);color:#000;font-weight:700;cursor:pointer;font-family:inherit;">تسجيل الخروج</button>
-                    </div>
-                `;
-                return;
-            }
+            // تحديث واجهة المستخدم بمعلوماته
+            updateUserUI();
 
-            // If we're here, we're authenticated as super admin
-            // Restore the page content and load the dashboard
-            // Since we overwrote the content with loading, we need to reload
-            // But we can use a different approach: we'll reload the page
-            // with a flag to prevent loops.
-
+            // إعادة تحميل الصفحة مع الحفاظ على المحتوى
+            // نستخدم sessionStorage لتجنب إعادة التحميل المتكررة
             if (!window.sessionStorage.getItem('dashboard_loaded')) {
                 window.sessionStorage.setItem('dashboard_loaded', '1');
                 window.location.reload();
                 return;
             }
 
-            // Now the page content is intact, we can show the dashboard
+            // الآن المحتوى محفوظ، نعرض لوحة التحكم
             navigateTo('dashboard');
         }
 
@@ -3663,44 +3774,6 @@
         } else {
             initApp();
         }
-
-        // ================================================================
-        // GLOBAL EXPOSURE (for debugging)
-        // ================================================================
-        window.__admin = {
-            auth,
-            db,
-            navigateTo,
-            showToast,
-            loadDashboard,
-            loadShops,
-            loadUsers,
-            loadBookings,
-            loadCustomers,
-            loadReviews,
-            loadPlans,
-            loadSubscriptions,
-            loadSubscriptionRequests,
-            loadPaymentRequests,
-            loadNotifications,
-            loadSettings,
-            loadProfile,
-            handleLogout,
-            openModal,
-            closeModal,
-            currentUser,
-            currentUserDoc,
-            isSuperAdmin
-        };
-
-        console.log('🚀 Super Admin Dashboard loaded');
-        console.log('📱 Firebase connected:', !!db);
-        console.log('🔐 Auth state:', currentUser ? 'Authenticated' : 'Not authenticated');
-        console.log('👑 Super Admin:', isSuperAdmin);
-
-        console.log('%c💈 باربر سنترال - سوبر أدمن', 'font-size:20px;font-weight:bold;color:#d4a74a;');
-        console.log('%cنظام إدارة متعدد المستأجرين - جاهز للإنتاج', 'font-size:14px;color:#a8b2c8;');
-        console.log('%c⚠️ تذكر: لا تستخدم مؤشرات مركبة في Firestore', 'font-size:12px;color:#f39c12;');
 
         // ================================================================
         // KEYBOARD SHORTCUTS
@@ -3721,8 +3794,9 @@
             }
         });
 
-        console.log('✅ جاهز!');
+        console.log('✅ لوحة التحكم جاهزة – مرحباً بك!');
+        console.log('👤 دور المستخدم:', currentUserDoc?.role || 'غير معروف');
+        console.log('👑 صلاحية سوبر أدمن:', isSuperAdmin ? '✅ نعم' : '❌ لا');
     </script>
-
 </body>
 </html>
