@@ -1,534 +1,594 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل الدخول – باربر سنترال</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول – باربر سنترال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: #0b0d10;
-      color: #f0f2f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0b0d10;
+            color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-    .login-box {
-      background: #1a1e26;
-      border-radius: 20px;
-      padding: 48px 40px;
-      max-width: 420px;
-      width: 100%;
-      border: 1px solid #2a303c;
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
-    }
+        .login-box {
+            background: #1a1e26;
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 100%;
+            border: 1px solid #2a303c;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+        }
 
-    .login-box .logo {
-      text-align: center;
-      margin-bottom: 32px;
-    }
+        .login-box .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
 
-    .login-box .logo i {
-      font-size: 3rem;
-      color: #d4a74a;
-    }
+        .login-box .logo i {
+            font-size: 3rem;
+            color: #d4a74a;
+        }
 
-    .login-box .logo h1 {
-      font-size: 1.6rem;
-      font-weight: 900;
-      margin-top: 8px;
-      background: linear-gradient(135deg, #d4a74a, #e8c97a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .login-box .logo h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-top: 8px;
+            background: linear-gradient(135deg, #d4a74a, #e8c97a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .login-box .logo p {
-      color: #6b7a92;
-      font-size: 0.85rem;
-    }
+        .login-box .logo p {
+            color: #6b7a92;
+            font-size: 0.85rem;
+        }
 
-    .form-group {
-      margin-bottom: 18px;
-    }
+        .form-group {
+            margin-bottom: 18px;
+        }
 
-    .form-group label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #a8b2c8;
-      margin-bottom: 4px;
-    }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #a8b2c8;
+            margin-bottom: 4px;
+        }
 
-    .form-group input {
-      width: 100%;
-      padding: 12px 16px;
-      background: #0b0d10;
-      border: 1px solid #2a303c;
-      border-radius: 8px;
-      color: #f0f2f5;
-      font-family: inherit;
-      font-size: 0.95rem;
-      outline: none;
-      transition: 0.25s;
-    }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0b0d10;
+            border: 1px solid #2a303c;
+            border-radius: 8px;
+            color: #f0f2f5;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.25s;
+        }
 
-    .form-group input:focus {
-      border-color: #d4a74a;
-    }
+        .form-group input:focus {
+            border-color: #d4a74a;
+        }
 
-    .btn-login {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      background: #d4a74a;
-      color: #0b0d10;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.25s;
-      margin-top: 6px;
-    }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #d4a74a;
+            color: #0b0d10;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 6px;
+        }
 
-    .btn-login:hover {
-      background: #e8c97a;
-      transform: scale(1.01);
-    }
+        .btn-login:hover {
+            background: #e8c97a;
+            transform: scale(1.01);
+        }
 
-    .btn-login:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
 
-    .error-msg {
-      background: rgba(231, 76, 60, 0.12);
-      color: #e74c3c;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      margin-bottom: 16px;
-      display: none;
-    }
+        .error-msg {
+            background: rgba(231, 76, 60, 0.12);
+            color: #e74c3c;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+        }
 
-    .error-msg.show {
-      display: block;
-    }
+        .error-msg.show {
+            display: block;
+        }
 
-    .auth-loading {
-      text-align: center;
-      color: #6b7a92;
-      padding: 12px 0;
-      font-size: 0.9rem;
-    }
+        .auth-loading {
+            text-align: center;
+            color: #6b7a92;
+            padding: 12px 0;
+            font-size: 0.9rem;
+        }
 
-    .auth-loading i {
-      margin-left: 8px;
-    }
+        .auth-loading i {
+            margin-left: 8px;
+        }
 
-    .forgot-link,
-    .toggle-mode {
-      display: block;
-      text-align: center;
-      margin-top: 14px;
-      font-size: 0.85rem;
-      color: #6b7a92;
-      cursor: pointer;
-      transition: 0.25s;
-      background: none;
-      border: none;
-      width: 100%;
-      font-family: inherit;
-    }
+        .forgot-link,
+        .toggle-mode {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: #6b7a92;
+            cursor: pointer;
+            transition: 0.25s;
+            background: none;
+            border: none;
+            width: 100%;
+            font-family: inherit;
+        }
 
-    .forgot-link:hover,
-    .toggle-mode:hover {
-      color: #d4a74a;
-    }
+        .forgot-link:hover,
+        .toggle-mode:hover {
+            color: #d4a74a;
+        }
 
-    .toggle-mode {
-      margin-top: 8px;
-    }
+        .toggle-mode {
+            margin-top: 8px;
+        }
 
-    .hidden {
-      display: none !important;
-    }
+        .hidden {
+            display: none !important;
+        }
 
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 20px 0;
-      color: #6b7a92;
-      font-size: 0.75rem;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #2a303c;
-    }
-
-    .footer-note {
-      text-align: center;
-      font-size: 0.7rem;
-      color: #4a5568;
-      margin-top: 24px;
-    }
-  </style>
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #4a5568;
+            margin-top: 24px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="login-box">
-    <div class="logo">
-      <i class="fas fa-scissors"></i>
-      <h1>باربر سنترال</h1>
-      <p>منصة الحلاقين – سوبر أدمن</p>
+    <div class="login-box">
+        <div class="logo">
+            <i class="fas fa-scissors"></i>
+            <h1>باربر سنترال</h1>
+            <p>منصة الحلاقين – سوبر أدمن</p>
+        </div>
+
+        <div class="error-msg" id="errorMsg"></div>
+
+        <!-- نموذج تسجيل الدخول -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="admin@example.com" required />
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" id="password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn-login" id="loginBtn">تسجيل الدخول</button>
+        </form>
+
+        <!-- زر إنشاء حساب جديد (يُظهر نموذج التسجيل) -->
+        <button class="toggle-mode" id="toggleModeBtn">ليس لديك حساب؟ إنشاء حساب جديد</button>
+
+        <!-- نموذج إنشاء حساب (مخفي افتراضياً) -->
+        <form id="signupForm" class="hidden">
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="signupEmail" placeholder="example@domain.com" required />
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور (6 أحرف على الأقل)</label>
+                <input type="password" id="signupPassword" placeholder="••••••••" required minlength="6" />
+            </div>
+            <button type="submit" class="btn-login" id="signupBtn">إنشاء حساب</button>
+            <button class="toggle-mode" id="backToLoginBtn">عودة إلى تسجيل الدخول</button>
+        </form>
+
+        <!-- زر نسيت كلمة المرور (يظهر في وضع تسجيل الدخول) -->
+        <button class="forgot-link" id="forgotBtn">نسيت كلمة المرور؟</button>
+
+        <div id="loadingIndicator" class="auth-loading hidden">
+            <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
+        </div>
+
+        <div class="footer-note">
+            🔐 أول مستخدم يصبح أدمن تلقائياً
+        </div>
     </div>
 
-    <div class="error-msg" id="errorMsg"></div>
+    <!-- ============================================================
+    FIREBASE MODULAR SDK (CDN)
+    ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+            }
+        }
+    </script>
 
-    <!-- نموذج تسجيل الدخول -->
-    <form id="loginForm">
-      <div class="form-group">
-        <label>البريد الإلكتروني</label>
-        <input type="email" id="email" placeholder="admin@example.com" required />
-      </div>
-      <div class="form-group">
-        <label>كلمة المرور</label>
-        <input type="password" id="password" placeholder="••••••••" required />
-      </div>
-      <button type="submit" class="btn-login" id="loginBtn">تسجيل الدخول</button>
-    </form>
+    <script type="module">
+        // ================================================================
+        // IMPORTS
+        // ================================================================
+        import { initializeApp } from 'firebase/app';
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            sendPasswordResetEmail,
+            onAuthStateChanged,
+            updateProfile
+        } from 'firebase/auth';
+        import {
+            getFirestore,
+            doc,
+            setDoc,
+            getDoc,
+            getDocs,
+            collection,
+            query,
+            limit,
+            serverTimestamp,
+            updateDoc
+        } from 'firebase/firestore';
 
-    <!-- زر إنشاء حساب جديد (يُظهر نموذج التسجيل) -->
-    <button class="toggle-mode" id="toggleModeBtn">ليس لديك حساب؟ إنشاء حساب جديد</button>
+        // ================================================================
+        // FIREBASE CONFIG (نفس الإعدادات)
+        // ================================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0IWiY-tI30LX2PSG9T2G2gEiBAEd4GqzU",
+            authDomain: "salons-feee4.firebaseapp.com",
+            projectId: "salons-feee4",
+            storageBucket: "salons-feee4.firebasestorage.app",
+            messagingSenderId: "601094041409",
+            appId: "1:601094041409:web:d03a02de993fbb203cbbc0",
+            measurementId: "G-GP53GSCW0C"
+        };
 
-    <!-- نموذج إنشاء حساب (مخفي افتراضياً) -->
-    <form id="signupForm" class="hidden">
-      <div class="form-group">
-        <label>البريد الإلكتروني</label>
-        <input type="email" id="signupEmail" placeholder="example@domain.com" required />
-      </div>
-      <div class="form-group">
-        <label>كلمة المرور (6 أحرف على الأقل)</label>
-        <input type="password" id="signupPassword" placeholder="••••••••" required minlength="6" />
-      </div>
-      <button type="submit" class="btn-login" id="signupBtn">إنشاء حساب</button>
-      <button class="toggle-mode" id="backToLoginBtn">عودة إلى تسجيل الدخول</button>
-    </form>
+        // ================================================================
+        // INIT
+        // ================================================================
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-    <!-- زر نسيت كلمة المرور (يظهر في وضع تسجيل الدخول) -->
-    <button class="forgot-link" id="forgotBtn">نسيت كلمة المرور؟</button>
+        // ================================================================
+        // DOM REFS
+        // ================================================================
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginForm = document.getElementById('loginForm');
 
-    <div id="loadingIndicator" class="auth-loading hidden">
-      <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
-    </div>
+        const signupEmail = document.getElementById('signupEmail');
+        const signupPassword = document.getElementById('signupPassword');
+        const signupBtn = document.getElementById('signupBtn');
+        const signupForm = document.getElementById('signupForm');
 
-    <div class="footer-note">
-      🔐 أول مستخدم يصبح أدمن تلقائياً
-    </div>
-  </div>
+        const toggleModeBtn = document.getElementById('toggleModeBtn');
+        const backToLoginBtn = document.getElementById('backToLoginBtn');
+        const forgotBtn = document.getElementById('forgotBtn');
 
-  <!-- ============================================================
-  FIREBASE MODULAR SDK (CDN)
-  ============================================================ -->
-  <script type="importmap">
-    {
-      "imports": {
-        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
-        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
-        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
-      }
-    }
-  </script>
+        const errorMsg = document.getElementById('errorMsg');
+        const loadingIndicator = document.getElementById('loadingIndicator');
 
-  <script type="module">
-    // ================================================================
-    // IMPORTS
-    // ================================================================
-    import { initializeApp } from 'firebase/app';
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      sendPasswordResetEmail,
-      onAuthStateChanged,
-      updateProfile
-    } from 'firebase/auth';
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      getDoc,
-      getDocs,
-      collection,
-      query,
-      limit,
-      serverTimestamp,
-      updateDoc
-    } from 'firebase/firestore';
-
-    // ================================================================
-    // FIREBASE CONFIG
-    // ================================================================
-    const firebaseConfig = {
-      apiKey: "AIzaSyA0IWiY-tI30LX2PSG9T2G2gEiBAEd4GqzU",
-      authDomain: "salons-feee4.firebaseapp.com",
-      projectId: "salons-feee4",
-      storageBucket: "salons-feee4.firebasestorage.app",
-      messagingSenderId: "601094041409",
-      appId: "1:601094041409:web:d03a02de993fbb203cbbc0",
-      measurementId: "G-GP53GSCW0C"
-    };
-
-    // ================================================================
-    // INIT
-    // ================================================================
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // ================================================================
-    // DOM REFS
-    // ================================================================
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const loginBtn = document.getElementById('loginBtn');
-    const loginForm = document.getElementById('loginForm');
-
-    const signupEmail = document.getElementById('signupEmail');
-    const signupPassword = document.getElementById('signupPassword');
-    const signupBtn = document.getElementById('signupBtn');
-    const signupForm = document.getElementById('signupForm');
-
-    const toggleModeBtn = document.getElementById('toggleModeBtn');
-    const backToLoginBtn = document.getElementById('backToLoginBtn');
-    const forgotBtn = document.getElementById('forgotBtn');
-
-    const errorMsg = document.getElementById('errorMsg');
-    const loadingIndicator = document.getElementById('loadingIndicator');
-
-    // ================================================================
-    // HELPERS
-    // ================================================================
-    function setLoading(loading) {
-      loginBtn.disabled = loading;
-      signupBtn.disabled = loading;
-      loginBtn.textContent = loading ? 'جاري...' : 'تسجيل الدخول';
-      signupBtn.textContent = loading ? 'جاري...' : 'إنشاء حساب';
-      loadingIndicator.classList.toggle('hidden', !loading);
-    }
-
-    function showError(msg) {
-      errorMsg.textContent = msg;
-      errorMsg.classList.add('show');
-      setTimeout(() => errorMsg.classList.remove('show'), 5000);
-    }
-
-    function clearError() {
-      errorMsg.classList.remove('show');
-      errorMsg.textContent = '';
-    }
-
-    // ================================================================
-    // FIRESTORE HELPERS
-    // ================================================================
-    async function isFirstUser() {
-      const q = query(collection(db, 'users'), limit(1));
-      const snap = await getDocs(q);
-      return snap.empty;
-    }
-
-    async function createUserDoc(user, role = 'customer') {
-      const userRef = doc(db, 'users', user.uid);
-      await setDoc(userRef, {
-        uid: user.uid,
-        name: user.displayName || user.email || 'مستخدم',
-        email: user.email || '',
-        role: role,
-        phone: '',
-        photoUrl: user.photoURL || '',
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-        lastLoginAt: serverTimestamp()
-      }, { merge: true });
-    }
-
-    // ================================================================
-    // AUTH FUNCTIONS
-    // ================================================================
-    async function handleLogin(email, password) {
-      clearError();
-      setLoading(true);
-      try {
-        const cred = await signInWithEmailAndPassword(auth, email, password);
-        const user = cred.user;
-
-        // التحقق من وجود مستند المستخدم
-        const userRef = doc(db, 'users', user.uid);
-        const userSnap = await getDoc(userRef);
-
-        if (!userSnap.exists()) {
-          // أول مستخدم يسجل دخولاً (أو مستخدم جديد لم يُنشأ له مستند)
-          const first = await isFirstUser();
-          const role = first ? 'super_admin' : 'customer';
-          await createUserDoc(user, role);
-          if (role === 'super_admin') {
-            showError('🎉 أنت أول مستخدم، تم ترقيتك إلى سوبر أدمن!');
-          }
-        } else {
-          // تحديث آخر تسجيل دخول
-          await updateDoc(userRef, { lastLoginAt: serverTimestamp() });
+        // ================================================================
+        // HELPERS
+        // ================================================================
+        function setLoading(loading) {
+            loginBtn.disabled = loading;
+            signupBtn.disabled = loading;
+            loginBtn.textContent = loading ? 'جاري...' : 'تسجيل الدخول';
+            signupBtn.textContent = loading ? 'جاري...' : 'إنشاء حساب';
+            loadingIndicator.classList.toggle('hidden', !loading);
         }
 
-        // التوجيه إلى لوحة التحكم
-        window.location.href = '/admin/dashboard.html';
-      } catch (err) {
-        showError(err.message);
-        setLoading(false);
-      }
-    }
-
-    async function handleSignup(email, password) {
-      clearError();
-      setLoading(true);
-      try {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        const user = cred.user;
-
-        // تعيين اسم افتراضي
-        await updateProfile(user, { displayName: email.split('@')[0] });
-
-        // تحديد الدور
-        const first = await isFirstUser();
-        const role = first ? 'super_admin' : 'customer';
-        await createUserDoc(user, role);
-
-        if (role === 'super_admin') {
-          showError('🎉 تم إنشاء حسابك كأول أدمن!');
+        function showError(msg) {
+            errorMsg.textContent = msg;
+            errorMsg.classList.add('show');
+            setTimeout(() => errorMsg.classList.remove('show'), 5000);
         }
 
-        // التوجيه إلى لوحة التحكم
-        window.location.href = '/admin/dashboard.html';
-      } catch (err) {
-        showError(err.message);
-        setLoading(false);
-      }
-    }
+        function clearError() {
+            errorMsg.classList.remove('show');
+            errorMsg.textContent = '';
+        }
 
-    async function handleForgotPassword(email) {
-      clearError();
-      if (!email) {
-        showError('أدخل بريدك الإلكتروني أولاً');
-        return;
-      }
-      try {
-        await sendPasswordResetEmail(auth, email);
-        showError('✅ تم إرسال رابط إعادة التعيين إلى بريدك');
-      } catch (err) {
-        showError(err.message);
-      }
-    }
+        // ================================================================
+        // FIRESTORE HELPERS
+        // ================================================================
+        // التحقق مما إذا كان هذا هو أول مستخدم في النظام (لا يوجد أي مستندات في users)
+        async function isFirstUser() {
+            const q = query(collection(db, 'users'), limit(1));
+            const snap = await getDocs(q);
+            return snap.empty;
+        }
 
-    // ================================================================
-    // EVENT LISTENERS
-    // ================================================================
+        // إنشاء مستند المستخدم في Firestore مع الدور المناسب
+        async function createUserDoc(user, role = 'customer') {
+            const userRef = doc(db, 'users', user.uid);
+            await setDoc(userRef, {
+                uid: user.uid,
+                name: user.displayName || user.email || 'مستخدم',
+                email: user.email || '',
+                role: role,
+                phone: '',
+                photoUrl: user.photoURL || '',
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp(),
+                lastLoginAt: serverTimestamp()
+            }, { merge: true });
+        }
 
-    // تبديل بين نموذج تسجيل الدخول ونموذج إنشاء حساب
-    toggleModeBtn.addEventListener('click', () => {
-      loginForm.classList.toggle('hidden');
-      signupForm.classList.toggle('hidden');
-      forgotBtn.classList.toggle('hidden');
-      toggleModeBtn.textContent = loginForm.classList.contains('hidden') ?
-        'لديك حساب؟ تسجيل الدخول' :
-        'ليس لديك حساب؟ إنشاء حساب جديد';
-      clearError();
-      // نسخ البريد الإلكتروني من حقل تسجيل الدخول إلى حقل التسجيل
-      if (!loginForm.classList.contains('hidden')) {
-        signupEmail.value = emailInput.value;
-      } else {
-        emailInput.value = signupEmail.value;
-      }
-    });
+        // تحديث آخر تسجيل دخول
+        async function updateLastLogin(user) {
+            const userRef = doc(db, 'users', user.uid);
+            await updateDoc(userRef, { lastLoginAt: serverTimestamp() });
+        }
 
-    backToLoginBtn.addEventListener('click', () => {
-      loginForm.classList.remove('hidden');
-      signupForm.classList.add('hidden');
-      forgotBtn.classList.remove('hidden');
-      toggleModeBtn.textContent = 'ليس لديك حساب؟ إنشاء حساب جديد';
-      clearError();
-    });
+        // ================================================================
+        // FUNCTIONS: تسجيل الدخول وإنشاء حساب
+        // ================================================================
 
-    // تسجيل الدخول
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      if (!email || !password) {
-        showError('يرجى إدخال البريد وكلمة المرور');
-        return;
-      }
-      handleLogin(email, password);
-    });
+        // تسجيل الدخول
+        async function handleLogin(email, password) {
+            clearError();
+            setLoading(true);
+            try {
+                // 1. تسجيل الدخول إلى Firebase Authentication
+                const cred = await signInWithEmailAndPassword(auth, email, password);
+                const user = cred.user;
 
-    // إنشاء حساب
-    signupForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = signupEmail.value.trim();
-      const password = signupPassword.value;
-      if (!email || !password) {
-        showError('يرجى إدخال البريد وكلمة المرور');
-        return;
-      }
-      if (password.length < 6) {
-        showError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
-        return;
-      }
-      handleSignup(email, password);
-    });
+                // 2. التحقق من وجود مستند المستخدم في Firestore
+                const userRef = doc(db, 'users', user.uid);
+                const userSnap = await getDoc(userRef);
 
-    // نسيت كلمة المرور
-    forgotBtn.addEventListener('click', () => {
-      const email = emailInput.value.trim();
-      handleForgotPassword(email);
-    });
+                if (!userSnap.exists()) {
+                    // أول مرة يسجل فيها هذا المستخدم → ننشئ له مستند
+                    const first = await isFirstUser();
+                    const role = first ? 'super_admin' : 'customer';
+                    await createUserDoc(user, role);
 
-    // ================================================================
-    // CHECK EXISTING SESSION
-    // ================================================================
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // إذا كان المستخدم مسجلاً، نوجهه إلى الداشبورد فوراً
-        // لكن نتحقق من وجود مستند users للتأكد من صلاحياته (لكننا نترك ذلك للـ dashboard)
-        window.location.href = '/admin/dashboard.html';
-      }
-    });
+                    if (role === 'super_admin') {
+                        showError('🎉 أنت أول مستخدم، تم ترقيتك إلى سوبر أدمن!');
+                        // ننتظر قليلاً ثم نوجهه إلى لوحة التحكم
+                        setTimeout(() => {
+                            window.location.href = '/admin/dashboard.html';
+                        }, 1500);
+                        setLoading(false);
+                        return;
+                    }
+                } else {
+                    // تحديث آخر تسجيل دخول
+                    await updateLastLogin(user);
+                }
 
-    // ================================================================
-    // KEYBOARD SHORTCUTS
-    // ================================================================
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        clearError();
-      }
-    });
+                // 3. بعد التأكد من وجود المستند، نقرأ الدور
+                const freshSnap = await getDoc(userRef);
+                if (freshSnap.exists()) {
+                    const data = freshSnap.data();
+                    const role = data.role || 'customer';
 
-    console.log('✅ صفحة تسجيل الدخول جاهزة');
-  </script>
+                    if (role === 'super_admin') {
+                        // سوبر أدمن → توجيه إلى لوحة التحكم
+                        window.location.href = '/admin/dashboard.html';
+                    } else {
+                        // مستخدم عادي → نعرض رسالة ونقوم بتسجيل الخروج أو نوجهه إلى صفحة عامة
+                        showError('⚠️ ليس لديك صلاحية سوبر أدمن للوصول إلى لوحة التحكم.');
+                        // يمكننا تسجيل الخروج تلقائياً أو ترك المستخدم مسجلاً لكن مع إمكانية الخروج يدوياً
+                        // هنا سنقوم بتسجيل الخروج للحفاظ على الأمان
+                        await signOut(auth);
+                        setLoading(false);
+                        // نعطي المستخدم خيار تسجيل الدخول بحساب آخر
+                        return;
+                    }
+                } else {
+                    // مستند غير موجود (حالة نادرة)
+                    showError('حدث خطأ في التحقق من الصلاحية، يرجى المحاولة مرة أخرى.');
+                    setLoading(false);
+                }
+            } catch (err) {
+                showError(err.message);
+                setLoading(false);
+            }
+        }
+
+        // إنشاء حساب جديد
+        async function handleSignup(email, password) {
+            clearError();
+            setLoading(true);
+            try {
+                // 1. إنشاء المستخدم في Authentication
+                const cred = await createUserWithEmailAndPassword(auth, email, password);
+                const user = cred.user;
+
+                // تعيين اسم افتراضي
+                await updateProfile(user, { displayName: email.split('@')[0] });
+
+                // 2. تحديد الدور: أول مستخدم يصبح سوبر أدمن
+                const first = await isFirstUser();
+                const role = first ? 'super_admin' : 'customer';
+                await createUserDoc(user, role);
+
+                if (role === 'super_admin') {
+                    showError('🎉 تم إنشاء حسابك كأول أدمن! سيتم توجيهك إلى لوحة التحكم.');
+                    setTimeout(() => {
+                        window.location.href = '/admin/dashboard.html';
+                    }, 1500);
+                    setLoading(false);
+                    return;
+                }
+
+                // 3. إذا لم يكن أول مستخدم، نوجهه إلى صفحة تسجيل الدخول أو نعرض رسالة
+                showError('✅ تم إنشاء الحساب بنجاح. يمكنك الآن تسجيل الدخول.');
+                // نعود إلى نموذج تسجيل الدخول ونملأ البريد
+                emailInput.value = email;
+                passwordInput.value = '';
+                toggleMode('login');
+                setLoading(false);
+            } catch (err) {
+                showError(err.message);
+                setLoading(false);
+            }
+        }
+
+        // إعادة تعيين كلمة المرور
+        async function handleForgotPassword(email) {
+            clearError();
+            if (!email) {
+                showError('أدخل بريدك الإلكتروني أولاً');
+                return;
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showError('✅ تم إرسال رابط إعادة التعيين إلى بريدك');
+            } catch (err) {
+                showError(err.message);
+            }
+        }
+
+        // تبديل الوضع بين تسجيل الدخول والتسجيل
+        function toggleMode(mode) {
+            if (mode === 'signup') {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                forgotBtn.classList.add('hidden');
+                toggleModeBtn.textContent = 'لديك حساب؟ تسجيل الدخول';
+                // نسخ البريد من حقل تسجيل الدخول إلى حقل التسجيل
+                signupEmail.value = emailInput.value;
+                signupPassword.value = '';
+            } else {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                forgotBtn.classList.remove('hidden');
+                toggleModeBtn.textContent = 'ليس لديك حساب؟ إنشاء حساب جديد';
+                // نسخ البريد من حقل التسجيل إلى حقل تسجيل الدخول
+                emailInput.value = signupEmail.value;
+                passwordInput.value = '';
+            }
+            clearError();
+        }
+
+        // ================================================================
+        // EVENT LISTENERS
+        // ================================================================
+
+        // تبديل الوضع
+        toggleModeBtn.addEventListener('click', () => {
+            if (loginForm.classList.contains('hidden')) {
+                toggleMode('login');
+            } else {
+                toggleMode('signup');
+            }
+        });
+
+        backToLoginBtn.addEventListener('click', () => {
+            toggleMode('login');
+        });
+
+        // تسجيل الدخول
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            if (!email || !password) {
+                showError('يرجى إدخال البريد وكلمة المرور');
+                return;
+            }
+            handleLogin(email, password);
+        });
+
+        // إنشاء حساب
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = signupEmail.value.trim();
+            const password = signupPassword.value;
+            if (!email || !password) {
+                showError('يرجى إدخال البريد وكلمة المرور');
+                return;
+            }
+            if (password.length < 6) {
+                showError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
+            handleSignup(email, password);
+        });
+
+        // نسيت كلمة المرور
+        forgotBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            handleForgotPassword(email);
+        });
+
+        // ================================================================
+        // AUTO-REDIRECT إذا كان المستخدم مسجلاً بالفعل ويملك صلاحية سوبر أدمن
+        // ================================================================
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // تحقق من صلاحياته في Firestore
+                try {
+                    const userRef = doc(db, 'users', user.uid);
+                    const snap = await getDoc(userRef);
+                    if (snap.exists()) {
+                        const data = snap.data();
+                        if (data.role === 'super_admin') {
+                            // توجيهه إلى لوحة التحكم
+                            window.location.href = '/admin/dashboard.html';
+                        }
+                        // إذا كان مستخدم عادي، نبقيه في صفحة تسجيل الدخول
+                        // ولا نوجهه تلقائياً
+                    }
+                } catch (e) {
+                    console.warn('Error checking user role:', e);
+                }
+            }
+        });
+
+        // ================================================================
+        // KEYBOARD SHORTCUTS
+        // ================================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                clearError();
+            }
+        });
+
+        console.log('✅ صفحة تسجيل الدخول جاهزة (تسمح لأي مستخدم بالدخول مع التحقق من الصلاحية)');
+    </script>
+
 </body>
 </html>
